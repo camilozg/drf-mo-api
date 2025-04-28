@@ -28,7 +28,7 @@ Esta API permite interactuar con un sistema de gestión de préstamos, donde los
     ```bash
     python manage.py runserver
 
-Por motivos de practicidad, el repositorio incluye la base de datos utilizada en el proceso de desarrollo, esta ha sido truncada para remover datos de prueba, solo persiste la API Key necesaria para consumir el API. No es necesario crear ni ejecutar migraciones. En caso de que requiera interactuar directamente con los modelos de la solución, en la siguiente sección se proporcionan las credenciales de acceso al panel de administración.
+Por motivos de practicidad, el repositorio incluye la base de datos utilizada en el proceso de desarrollo, esta ha sido truncada para remover datos de prueba, solo persiste la API Key necesaria para consumir el API. No es necesario crear ni ejecutar migraciones. En caso de que requiera interactuar directamente con los modelos del proyecto, en la siguiente sección se proporcionan las credenciales de acceso al panel de administración.
 
 ## Panel de Administración
 
@@ -56,7 +56,9 @@ En la sección de autenticación debe gregar el valor de la API Key, de la sigui
 
 ![Logo del proyecto](docs/example_swagger.png)
 
-Una vez autorizado, es posible interactuar con el Swagger para probar los diferentes endpoints. Los métodos POST se envian como se observa a continuación:
+Una vez autorizado, es posible interactuar con el Swagger para probar los diferentes endpoints. 
+
+Los métodos POST se envían tal como se observa a continuación:
 
 ![Logo del proyecto](docs/example_swagger_post.png)
 
@@ -65,6 +67,10 @@ Una vez autorizado, es posible interactuar con el Swagger para probar los difere
 En la sección de encabezados debe agregar la llave **Authorization** y el valor de la API Key, de la siguiente manera:
 
 ![Logo del proyecto](docs/example_postman.png)
+
+Los métodos POST se envían tal como se observa a continuación:
+
+![Logo del proyecto](docs/example_postman_post.png)
 
 ## Pruebas unitarias
 
