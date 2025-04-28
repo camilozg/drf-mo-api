@@ -1,0 +1,478 @@
+openapi: 3.0.3
+info:
+  title: Django REST Framework MO API
+  version: 1.0.0
+  description: API for managing customers, loans, and payments.
+paths:
+  /api/customers/:
+    get:
+      operationId: api_customers_list
+      description: |-
+        Customer ViewSet
+
+        Endpoints:
+        - Retrieve customer details
+        - Create new customers
+      tags:
+      - Customers
+      security:
+      - ApiKeyAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Customer'
+          description: ''
+    post:
+      operationId: api_customers_create
+      description: |-
+        Customer ViewSet
+
+        Endpoints:
+        - Retrieve customer details
+        - Create new customers
+      tags:
+      - Customers
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Customer'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Customer'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Customer'
+        required: true
+      security:
+      - ApiKeyAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+          description: ''
+  /api/customers/{external_id}/:
+    get:
+      operationId: api_customers_retrieve
+      description: |-
+        Customer ViewSet
+
+        Endpoints:
+        - Retrieve customer details
+        - Create new customers
+      parameters:
+      - in: path
+        name: external_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Customers
+      security:
+      - ApiKeyAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+          description: ''
+  /api/customers/{external_id}/balance/:
+    get:
+      operationId: api_customers_balance_retrieve
+      description: |-
+        Retrieve Customer Balance
+
+        Args:
+        - request: HTTP request object.
+        - external_id: Customer's external ID.
+
+        Returns:
+        - JSON response with balance details.
+      parameters:
+      - in: path
+        name: external_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Customers
+      security:
+      - ApiKeyAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Customer'
+          description: ''
+  /api/loans/:
+    get:
+      operationId: api_loans_list
+      description: |-
+        Loan ViewSet
+
+        Endpoints:
+        - Retrieve loan details
+        - Create new loans
+      tags:
+      - Loans
+      security:
+      - ApiKeyAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Loan'
+          description: ''
+    post:
+      operationId: api_loans_create
+      description: |-
+        Loan ViewSet
+
+        Endpoints:
+        - Retrieve loan details
+        - Create new loans
+      tags:
+      - Loans
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Loan'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Loan'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Loan'
+        required: true
+      security:
+      - ApiKeyAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Loan'
+          description: ''
+  /api/loans/{external_id}/:
+    get:
+      operationId: api_loans_retrieve
+      description: |-
+        Loan ViewSet
+
+        Endpoints:
+        - Retrieve loan details
+        - Create new loans
+      parameters:
+      - in: path
+        name: external_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Loans
+      security:
+      - ApiKeyAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Loan'
+          description: ''
+  /api/loans/{external_id}/activate/:
+    post:
+      operationId: api_loans_activate_create
+      description: |-
+        Marks a loan as active and sets the 'taken_at' timestamp.
+
+        Args:
+        - request: HTTP request object.
+        - external_id: Loan's external ID.
+
+        Returns:
+        - JSON response with updated loan details.
+      parameters:
+      - in: path
+        name: external_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Loans
+      security:
+      - ApiKeyAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Loan'
+          description: ''
+  /api/loans/by-customer/{external_id}/:
+    get:
+      operationId: api_loans_by_customer_retrieve
+      description: |-
+        Fetches all loans for a specific customer.
+
+        Args:
+        - request: HTTP request object.
+        - external_id: Customer's external ID.
+
+        Returns:
+        - JSON response with a list of loans.
+      parameters:
+      - in: path
+        name: external_id
+        schema:
+          type: string
+          pattern: ^[a-zA-Z0-9_-]+$
+        required: true
+      tags:
+      - Loans
+      security:
+      - ApiKeyAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Loan'
+          description: ''
+  /api/payments/:
+    get:
+      operationId: api_payments_list
+      description: |-
+        Payment ViewSet
+
+        Endpoints:
+        - Retrieve payment details
+        - Create new payments
+      tags:
+      - Payments
+      security:
+      - ApiKeyAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Payment'
+          description: ''
+    post:
+      operationId: api_payments_create
+      description: |-
+        Payment ViewSet
+
+        Endpoints:
+        - Retrieve payment details
+        - Create new payments
+      tags:
+      - Payments
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Payment'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Payment'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Payment'
+        required: true
+      security:
+      - ApiKeyAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payment'
+          description: ''
+  /api/payments/{external_id}/:
+    get:
+      operationId: api_payments_retrieve
+      description: |-
+        Payment ViewSet
+
+        Endpoints:
+        - Retrieve payment details
+        - Create new payments
+      parameters:
+      - in: path
+        name: external_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - Payments
+      security:
+      - ApiKeyAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payment'
+          description: ''
+  /api/payments/by-customer/{external_id}/:
+    get:
+      operationId: api_payments_by_customer_retrieve
+      description: |-
+        Retrieve Payments by Customer
+
+        Fetches all payment details for a specific customer.
+
+        Args:
+        - request: HTTP request object.
+        - external_id: Customer's external ID.
+
+        Returns:
+        - JSON response with a list of payment details.
+      parameters:
+      - in: path
+        name: external_id
+        schema:
+          type: string
+          pattern: ^[a-zA-Z0-9_-]+$
+        required: true
+      tags:
+      - Payments
+      security:
+      - ApiKeyAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Payment'
+          description: ''
+components:
+  schemas:
+    Customer:
+      type: object
+      description: |-
+        Serializer for the Customer model.
+        Handles serialization and deserialization of Customer objects.
+      properties:
+        external_id:
+          type: string
+          maxLength: 60
+        status:
+          allOf:
+          - $ref: '#/components/schemas/CustomerStatusEnum'
+          readOnly: true
+        score:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,10})?$
+        preapproved_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - external_id
+      - preapproved_at
+      - score
+      - status
+    CustomerStatusEnum:
+      enum:
+      - 1
+      - 2
+      type: integer
+      description: |-
+        * `1` - activo
+        * `2` - inactivo
+    Loan:
+      type: object
+      description: |-
+        Serializer for the Loan model.
+        Handles validation and serialization of Loan objects.
+      properties:
+        external_id:
+          type: string
+          maxLength: 60
+        customer_external_id:
+          type: string
+        amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+        outstanding:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+          readOnly: true
+        status:
+          allOf:
+          - $ref: '#/components/schemas/LoanStatusEnum'
+          readOnly: true
+      required:
+      - amount
+      - customer_external_id
+      - external_id
+      - outstanding
+      - status
+    LoanStatusEnum:
+      enum:
+      - 1
+      - 2
+      - 3
+      - 4
+      type: integer
+      description: |-
+        * `1` - pending
+        * `2` - active
+        * `3` - rejected
+        * `4` - paid
+    Payment:
+      type: object
+      description: |-
+        Serializer for the Payment model.
+        Handles validation, creation, and serialization of Payment objects.
+      properties:
+        external_id:
+          type: string
+          maxLength: 60
+        customer_external_id:
+          type: string
+        total_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,10})?$
+        status:
+          allOf:
+          - $ref: '#/components/schemas/PaymentStatusEnum'
+          readOnly: true
+      required:
+      - customer_external_id
+      - external_id
+      - status
+      - total_amount
+    PaymentStatusEnum:
+      enum:
+      - 1
+      - 2
+      type: integer
+      description: |-
+        * `1` - completed
+        * `2` - rejected
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
